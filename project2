@@ -1,0 +1,91 @@
+class Goal:
+
+    def __init__(self, title, description):
+        self.title = title
+        self.description = description
+        self.completed = False
+
+    def mark_completed(self):
+        self.completed = True  # Mark the goal as completed
+        status = "Completed" if self.completed else "In progress"
+        return f"Goal: {self.title}\nDescription: {self.description}\nStatus: {status}"
+
+
+class GoalTracker:
+
+    def __init__(self):
+        self.goals = []
+
+    def add_goal(self, title, description):
+        new_goal = Goal(title, description)
+        self.goals.append(new_goal)
+        print("\nGoal added successfully!")
+
+    def list_goals(self):
+        if not self.goals:
+            print("\nNo goals to display.")
+            return
+        print("\nYour Goals:")
+        for idx, goal in enumerate(self.goals, 1):
+            print(f"{idx}. {goal.title} - {'Completed' if goal.completed else 'In Progress'}")
+
+    def mark_goal_completed(self, index):
+        if 0 <= index < len(self.goals):
+            self.goals[index].mark_completed()
+            print("\nGoal marked as completed!")
+        else:
+            print("\nInvalid goal number.")
+
+    def delete_goal(self, index):
+        if 0 <= index < len(self.goals):
+            removed_goal = self.goals.pop(index)
+            print(f"\nGoal '{removed_goal.title}' deleted.")
+        else:
+            print("\nInvalid goal number.")
+
+    def show_goal_details(self, index):
+        if 0 <= index < len(self.goals):
+            print("\n" + str(self.goals[index]))
+        else:
+            print("\nInvalid goal number.")
+
+def display_menu():
+    print("\nGoal Tracking App Menu")
+    print("1. Add a new Goal")
+    print("2. List All Goals")
+    print("3. Mark Goal as Completed")
+    print("4. Delete a Goal")
+    print("5. View Goal Details")
+    print("6. Exit")
+
+def main():
+    tracker = GoalTracker()
+    while True:
+        display_menu()
+        choice = input("\nEnter your choice (1-6): ")
+        if choice == "1":
+            title = input("\nEnter goal title: ")
+            description = input("Enter goal description: ")
+            tracker.add_goal(title, description)
+        elif choice == "2":
+            tracker.list_goals()
+        elif choice == "3":
+            tracker.list_goals()
+            index = int(input("\nEnter the goal number to mark as completed: ")) - 1
+            tracker.mark_goal_completed(index)
+        elif choice == "4":
+            tracker.list_goals()
+            index = int(input("\nEnter the goal number to delete: ")) - 1
+            tracker.delete_goal(index)
+        elif choice == "5":
+            tracker.list_goals()
+            index = int(input("\nEnter the goal number to view details: ")) - 1
+            tracker.show_goal_details(index)
+        elif choice == "6":
+            print("\nExiting Goal Tracking App. Goodbye!")
+            break
+        else:
+            print("\nInvalid choice, please try again.")
+
+if __name__ == "__main__":
+    main()
