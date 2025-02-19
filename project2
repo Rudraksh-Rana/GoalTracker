@@ -10,7 +10,6 @@ class Goal:
         status = "Completed" if self.completed else "In progress"
         return f"Goal: {self.title}\nDescription: {self.description}\nStatus: {status}"
 
-
 class GoalTracker:
 
     def __init__(self):
